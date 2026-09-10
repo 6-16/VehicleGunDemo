@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 996bf428255264bf98ae0ddbbb28093c, type: 3}
+  m_Name: MainMenu_UISceneConfig
+  m_EditorClassIdentifier: Assembly-CSharp::ProBase.UiSceneConfig
+  _screens:
+  - {fileID: 11400000, guid: 0ee0d92e9519b4506be3d3ad3af45236, type: 2}
+  _entryScreen: {fileID: 11400000, guid: 0ee0d92e9519b4506be3d3ad3af45236, type: 2}

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830fffa1dc42e4f739e7d10f574d0d76, type: 3}
+  m_Name: MainMenu_Screen
+  m_EditorClassIdentifier: Assembly-CSharp::ProBase.UiScreenDefinition
+  _prefab: {fileID: 5447987119004108071, guid: f39d06a60e5c24b74864512d90b2f35e, type: 3}
+  _layer: 0
+  _sortPriority: 0
+  _preload: 0
+  _destroyOnClose: 0
+  _blocksBack: 0
