@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: TurretConfig
   m_EditorClassIdentifier: Assembly-CSharp::TurretConfig
   _degreesPerScreenWidth: 120
+  _keyRotationSpeed: 90
   _coneHalfAngle: 45
   _fireInterval: 0.5

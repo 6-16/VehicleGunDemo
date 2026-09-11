@@ -7,6 +7,7 @@ public class ProjectileView : MonoBehaviour
 
     public Transform Transform => _transform;
     public float Remaining { get; set; }
+    public int ActiveIndex { get; set; }
 
     private void Awake()
     {

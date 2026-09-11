@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
   _distance: 600
   _enemy: {fileID: 11400000, guid: 8956b9b102744d69b0d405d7220402a6, type: 2}
-  _spawnSeed: 1
   _firstSpawnDistance: 40
+  _spawnAheadDistance: 150
   _spawnIntervalRange: {x: 12, y: 22}
   _groupSizeRange: {x: 1, y: 3}
   _lateralSpread: 6

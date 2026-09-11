@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7549365484183219437}
   - component: {fileID: 2144343352319248600}
   - component: {fileID: 2495967421641443096}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WheelFR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 1091217077501892604}
   - component: {fileID: 2936416704886465334}
   - component: {fileID: 7510253301967260912}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 204693674314231886}
   - component: {fileID: 3750635565808465396}
   - component: {fileID: 6820578258568336080}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WheelRR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,8 @@ GameObject:
   - component: {fileID: 5983038637331981711}
   - component: {fileID: 5512405500754677613}
   - component: {fileID: 4706533554239963820}
-  m_Layer: 0
+  - component: {fileID: 3867429068676012363}
+  m_Layer: 7
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -381,6 +382,27 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3867429068676012363
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6575009040917798102}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.9037619, y: 1.4145933, z: 4.2487106}
+  m_Center: {x: -0.00000032782555, y: 0.96216124, z: 0.00005507469}
 --- !u!1 &6698828600358146084
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,7 +412,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7001586719755702499}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +445,7 @@ GameObject:
   - component: {fileID: 2812674047540029914}
   - component: {fileID: 7024084890461446262}
   - component: {fileID: 4814116926133327852}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WheelRL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +534,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8630110048866591260}
   - component: {fileID: 2047699783654235849}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerVehicle_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -560,7 +582,7 @@ GameObject:
   - component: {fileID: 5340491403729939503}
   - component: {fileID: 8949149874713089004}
   - component: {fileID: 6870954689632567282}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WheelFL
   m_TagString: Untagged
   m_Icon: {fileID: 0}

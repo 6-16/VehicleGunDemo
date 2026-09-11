@@ -7,6 +7,8 @@ public class RunInstaller : MonoInstaller
 {
     private const string RoadParentName = "Road";
     private const string ProjectileParentName = "Projectiles";
+    private const string EnemyParentName = "Enemies";
+    private const string EffectParentName = "Effects";
 
     [SerializeField] private VehicleConfig _vehicleConfig;
     [SerializeField] private TurretConfig _turretConfig;
@@ -17,6 +19,7 @@ public class RunInstaller : MonoInstaller
     [SerializeField] private Camera _runCamera;
     [SerializeField] private InputActionReference _aimDragAction;
     [SerializeField] private InputActionReference _aimHoldAction;
+    [SerializeField] private InputActionReference _aimRotateAction;
 
     public override void InstallBindings()
     {
@@ -47,6 +50,7 @@ public class RunInstaller : MonoInstaller
         Container.BindInstance(_cameraConfig).AsSingle();
 
         Container.Bind<LevelConfig>().FromResolveGetter<GameplayRequest>(request => request.Level).AsSingle();
+        Container.Bind<EnemyConfig>().FromResolveGetter<LevelConfig>(level => level.Enemy).AsSingle();
     }
 
     private void InstallViews()
@@ -72,21 +76,39 @@ public class RunInstaller : MonoInstaller
             .WithInitialSize(_projectileConfig.PoolSize)
             .FromComponentInNewPrefab(_projectileConfig.Prefab)
             .UnderTransformGroup(ProjectileParentName);
+
+        EnemyConfig enemyConfig = Container.Resolve<GameplayRequest>().Level.Enemy;
+
+        Container.BindMemoryPool<EnemyView, EnemyView.Pool>()
+            .WithInitialSize(enemyConfig.PoolSize)
+            .FromComponentInNewPrefab(enemyConfig.Prefab)
+            .UnderTransformGroup(EnemyParentName);
+
+        Container.BindMemoryPool<ParticleSystem, DeathEffectPool>()
+            .WithInitialSize(enemyConfig.DeathEffectPoolSize)
+            .FromComponentInNewPrefab(enemyConfig.DeathEffect)
+            .UnderTransformGroup(EffectParentName);
     }
 
     private void InstallSystems()
     {
         Container.BindInterfacesAndSelfTo<VehicleMovement>().AsSingle();
+        Container.BindInterfacesAndSelfTo<VehicleHealth>().AsSingle();
         Container.BindInterfacesAndSelfTo<RunController>().AsSingle();
         Container.BindInterfacesTo<RoadSystem>().AsSingle();
         Container.BindInterfacesTo<RunCamera>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<AimInput>()
             .AsSingle()
-            .WithArguments(_aimDragAction, _aimHoldAction);
+            .WithArguments(_aimDragAction, _aimHoldAction, _aimRotateAction);
 
         Container.BindInterfacesTo<TurretAiming>().AsSingle();
         Container.BindInterfacesAndSelfTo<ProjectileSystem>().AsSingle();
         Container.BindInterfacesTo<TurretFiring>().AsSingle();
+
+        Container.Bind<SpawnPlan>().AsSingle();
+        Container.BindInterfacesAndSelfTo<EffectSystem>().AsSingle();
+        Container.BindInterfacesAndSelfTo<EnemySystem>().AsSingle();
+        Container.BindInterfacesTo<EnemySpawner>().AsSingle();
     }
 }

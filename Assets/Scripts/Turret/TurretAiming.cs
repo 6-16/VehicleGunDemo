@@ -21,20 +21,37 @@ public class TurretAiming : ITickable
 
     public void Tick()
     {
-        float drag = _input.HorizontalDrag;
+        float step = DragStep() + KeyStep();
 
-        if (drag == 0f) return;
+        if (step == 0f) return;
 
-        float screenWidth = Screen.width;
-
-        if (screenWidth <= 0f) return;
-
-        float step = drag / screenWidth * _config.DegreesPerScreenWidth;
         float clamped = Mathf.Clamp(_angle + step, -_config.ConeHalfAngle, _config.ConeHalfAngle);
 
         if (clamped == _angle) return;
 
         _angle = clamped;
         _view.Pivot.localRotation = Quaternion.Euler(0f, _angle, 0f);
+    }
+
+    private float DragStep()
+    {
+        float drag = _input.HorizontalDrag;
+
+        if (drag == 0f) return 0f;
+
+        float screenWidth = Screen.width;
+
+        if (screenWidth <= 0f) return 0f;
+
+        return drag / screenWidth * _config.DegreesPerScreenWidth;
+    }
+
+    private float KeyStep()
+    {
+        float axis = _input.RotateAxis;
+
+        if (axis == 0f) return 0f;
+
+        return axis * _config.KeyRotationSpeed * Time.deltaTime;
     }
 }

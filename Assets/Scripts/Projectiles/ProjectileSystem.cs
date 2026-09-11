@@ -5,6 +5,8 @@ using Zenject;
 
 public class ProjectileSystem : ITickable
 {
+    private const int Inactive = -1;
+
     private readonly ProjectileConfig _config;
     private readonly ProjectileView.Pool _pool;
     private readonly List<ProjectileView> _active = new List<ProjectileView>();
@@ -21,8 +23,16 @@ public class ProjectileSystem : ITickable
 
         projectile.Transform.SetPositionAndRotation(muzzle.position, muzzle.rotation);
         projectile.Remaining = _config.Lifetime;
+        projectile.ActiveIndex = _active.Count;
 
         _active.Add(projectile);
+    }
+
+    public void Release(ProjectileView projectile)
+    {
+        if (projectile.ActiveIndex == Inactive) return;
+
+        ReleaseAt(projectile.ActiveIndex);
     }
 
     public void Tick()
@@ -38,7 +48,7 @@ public class ProjectileSystem : ITickable
 
             if (projectile.Remaining <= 0f)
             {
-                Release(index);
+                ReleaseAt(index);
                 continue;
             }
 
@@ -46,13 +56,20 @@ public class ProjectileSystem : ITickable
         }
     }
 
-    private void Release(int index)
+    private void ReleaseAt(int index)
     {
         ProjectileView projectile = _active[index];
         int last = _active.Count - 1;
 
-        _active[index] = _active[last];
+        if (index != last)
+        {
+            _active[index] = _active[last];
+            _active[index].ActiveIndex = index;
+        }
+
         _active.RemoveAt(last);
+
+        projectile.ActiveIndex = Inactive;
 
         _pool.Despawn(projectile);
     }
