@@ -1,4 +1,5 @@
 using System;
+using ProBase;
 using UnityEngine;
 using Zenject;
 
@@ -6,6 +7,7 @@ public class RunController : IInitializable, ITickable, IDisposable
 {
     private readonly VehicleMovement _movement;
     private readonly VehicleHealth _health;
+    private readonly PauseService _pauseService;
     private readonly LevelConfig _level;
     private readonly SignalBus _signalBus;
 
@@ -15,10 +17,16 @@ public class RunController : IInitializable, ITickable, IDisposable
     public bool IsRunning => _isRunning;
     public float NormalizedProgress => Mathf.Clamp01(_movement.Travelled / _level.Distance);
 
-    public RunController(VehicleMovement movement, VehicleHealth health, LevelConfig level, SignalBus signalBus)
+    public RunController(
+        VehicleMovement movement,
+        VehicleHealth health,
+        PauseService pauseService,
+        LevelConfig level,
+        SignalBus signalBus)
     {
         _movement = movement ?? throw new ArgumentNullException(nameof(movement));
         _health = health ?? throw new ArgumentNullException(nameof(health));
+        _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
         _level = level != null ? level : throw new ArgumentNullException(nameof(level));
         _signalBus = signalBus ?? throw new ArgumentNullException(nameof(signalBus));
     }
@@ -50,6 +58,7 @@ public class RunController : IInitializable, ITickable, IDisposable
         _isRunning = false;
         _isFinished = true;
         _movement.Stop();
+        _pauseService.Pause();
 
         _signalBus.Fire(new RunFinishedSignal(result));
     }

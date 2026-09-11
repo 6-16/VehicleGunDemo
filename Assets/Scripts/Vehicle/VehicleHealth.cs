@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-public class VehicleHealth : IInitializable, IDamageable
+public class VehicleHealth : IInitializable, IDamageable, IHealth
 {
     private readonly VehicleConfig _config;
 

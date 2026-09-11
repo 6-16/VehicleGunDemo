@@ -37,7 +37,7 @@ public class EnemySystem : ITickable
         EnemyView enemy = _pool.Spawn();
 
         enemy.Transform.SetPositionAndRotation(position, Quaternion.identity);
-        enemy.Health = _config.MaxHealth;
+        enemy.Restore(_config.MaxHealth);
         enemy.State = EnemyState.Idle;
         enemy.IsFlinching = false;
         enemy.ActiveIndex = _active.Count;
@@ -126,9 +126,9 @@ public class EnemySystem : ITickable
 
         if (enemy.State == EnemyState.Dying) return;
 
-        enemy.Health -= _projectileConfig.Damage;
+        enemy.Health.TakeDamage(_projectileConfig.Damage);
 
-        if (enemy.Health <= 0)
+        if (!enemy.Health.IsAlive)
         {
             BeginDeath(enemy);
             return;
@@ -154,6 +154,7 @@ public class EnemySystem : ITickable
     {
         enemy.State = EnemyState.Dying;
         enemy.SetCollisionEnabled(false);
+        enemy.HideHealthBar();
         enemy.PlayHit();
 
         enemy.EffectRemaining = _effects.Play(enemy.Transform.position);

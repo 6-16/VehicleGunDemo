@@ -8,6 +8,9 @@ public class EnemyView : MonoBehaviour
 
     [SerializeField] private Animator _animator;
     [SerializeField] private Collider _collider;
+    [SerializeField] private HealthBarView _healthBar;
+
+    private readonly EnemyHealth _health = new EnemyHealth();
 
     private Transform _transform;
     private int _idleHash;
@@ -15,7 +18,7 @@ public class EnemyView : MonoBehaviour
     private int _hitHash;
 
     public Transform Transform => _transform;
-    public int Health { get; set; }
+    public EnemyHealth Health => _health;
     public EnemyState State { get; set; }
     public bool IsFlinching { get; set; }
     public float EffectRemaining { get; set; }
@@ -30,6 +33,19 @@ public class EnemyView : MonoBehaviour
         _idleHash = Animator.StringToHash("Idle");
         _runHash = Animator.StringToHash("Run");
         _hitHash = Animator.StringToHash("GotHit");
+
+        _healthBar.Bind(_health);
+    }
+
+    public void Restore(int maxHealth)
+    {
+        _health.Restore(maxHealth);
+        _healthBar.Hide();
+    }
+
+    public void HideHealthBar()
+    {
+        _healthBar.Hide();
     }
 
     public void PlayIdle()

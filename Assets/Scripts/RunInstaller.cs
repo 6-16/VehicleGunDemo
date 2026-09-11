@@ -110,5 +110,6 @@ public class RunInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<EffectSystem>().AsSingle();
         Container.BindInterfacesAndSelfTo<EnemySystem>().AsSingle();
         Container.BindInterfacesTo<EnemySpawner>().AsSingle();
+        Container.BindInterfacesTo<RunResultPresenter>().AsSingle();
     }
 }
