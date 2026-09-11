@@ -325,6 +325,8 @@ MonoBehaviour:
   _projectileConfig: {fileID: 11400000, guid: 2c1c043ce12245cc9256bcaf96f460f0, type: 2}
   _roadConfig: {fileID: 11400000, guid: 9d149c3e0c3b407ba40f09a52e4df2a2, type: 2}
   _cameraConfig: {fileID: 11400000, guid: 69dae95cd58b4c508fe828f322cfbf7e, type: 2}
+  _vehiclePrefab: {fileID: 2047699783654235849, guid: 38f593b521a194e5ba4e3c1ef30f1676, type: 3}
+  _runCamera: {fileID: 348948284}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

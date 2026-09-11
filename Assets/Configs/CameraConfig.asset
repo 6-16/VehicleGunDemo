@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 034b013d02bd420a965d1d92d527f35f, type: 3}
   m_Name: CameraConfig
   m_EditorClassIdentifier: Assembly-CSharp::CameraConfig
-  _spectateOffset: {x: 4.5, y: 2, z: -3.5}
-  _spectateLookOffset: {x: 0, y: 1, z: 0}
-  _chaseOffset: {x: 0, y: 6, z: -9}
-  _chaseLookOffset: {x: 0, y: 1.5, z: 8}
-  _blendDuration: 1.2
+  _spectatePosition: {x: -6, y: 7, z: -3.5}
+  _spectateRotation: {x: 40, y: 60, z: 0}
+  _chasePosition: {x: 0, y: 8, z: -9}
+  _chaseRotation: {x: 35, y: 0, z: 0}
+  _blendDuration: 0.5

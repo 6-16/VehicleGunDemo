@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VehicleConfig
   _forwardSpeed: 12
   _maxHealth: 100
-  _weaveAmplitude: 1.2
-  _weaveFrequency: 0.35
-  _weaveYawAngle: 4
+  _driftAmplitude: 1.5
+  _driftLength: 50
+  _driftMaxYawAngle: 8

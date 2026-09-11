@@ -374,6 +374,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8630110048866591260}
+  - component: {fileID: 2047699783654235849}
   m_Layer: 0
   m_Name: PlayerVehicle_Prefab
   m_TagString: Untagged
@@ -397,6 +398,19 @@ Transform:
   - {fileID: 5983038637331981711}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2047699783654235849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7586663000225562955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb9af9513ed94df596ab76511d572912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleView
+  _body: {fileID: 5983038637331981711}
 --- !u!1 &8961784983730618423
 GameObject:
   m_ObjectHideFlags: 0
