@@ -6,10 +6,12 @@ namespace ProBase
     public class ProjectInstaller : MonoInstaller
     {
         [SerializeField] private SceneCatalog _sceneCatalog;
+        [SerializeField] private LevelCatalog _levelCatalog;
 
         public override void InstallBindings()
         {
             Container.BindInstance(_sceneCatalog).AsSingle();
+            Container.BindInstance(_levelCatalog).AsSingle();
 
             Container.Bind<LoadingProgress>().AsSingle();
             Container.Bind<SceneTransitionService>().AsSingle();

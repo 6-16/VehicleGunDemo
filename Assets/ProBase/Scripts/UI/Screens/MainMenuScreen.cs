@@ -10,11 +10,13 @@ namespace ProBase
         [SerializeField] private Button _playButton;
 
         private AppStateMachine _stateMachine;
+        private LevelCatalog _levelCatalog;
 
         [Inject]
-        private void Construct(AppStateMachine stateMachine)
+        private void Construct(AppStateMachine stateMachine, LevelCatalog levelCatalog)
         {
             _stateMachine = stateMachine ?? throw new ArgumentNullException(nameof(stateMachine));
+            _levelCatalog = levelCatalog != null ? levelCatalog : throw new ArgumentNullException(nameof(levelCatalog));
         }
 
         protected override void OnOpened()
@@ -31,7 +33,7 @@ namespace ProBase
         {
             try
             {
-                await _stateMachine.EnterAsync<GameplayState, GameplayRequest>(new GameplayRequest());
+                await _stateMachine.EnterAsync<GameplayState, GameplayRequest>(new GameplayRequest(_levelCatalog.First));
             }
             catch (Exception exception)
             {

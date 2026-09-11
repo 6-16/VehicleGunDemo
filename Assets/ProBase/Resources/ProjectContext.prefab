@@ -75,3 +75,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProBase.ProjectInstaller
   _sceneCatalog: {fileID: 11400000, guid: c09306a9237094108a099295c04ce179, type: 2}
+  _levelCatalog: {fileID: 11400000, guid: 20c8982f337f495581bd0953dfde79ef, type: 2}

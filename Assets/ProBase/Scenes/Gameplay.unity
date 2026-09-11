@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 940092821}
   - component: {fileID: 940092820}
   - component: {fileID: 940092819}
+  - component: {fileID: 940092823}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -274,6 +275,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 940092820}
   - {fileID: 940092819}
+  - {fileID: 940092823}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -306,6 +308,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &940092823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940092818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1afa1b784244640a7d23a7244d58ad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunInstaller
+  _vehicleConfig: {fileID: 11400000, guid: 1644c2912f2f4f619e1744b6726ed09e, type: 2}
+  _turretConfig: {fileID: 11400000, guid: 5bcb6be8675348b3ae6ced099a149ad7, type: 2}
+  _projectileConfig: {fileID: 11400000, guid: 2c1c043ce12245cc9256bcaf96f460f0, type: 2}
+  _roadConfig: {fileID: 11400000, guid: 9d149c3e0c3b407ba40f09a52e4df2a2, type: 2}
+  _cameraConfig: {fileID: 11400000, guid: 69dae95cd58b4c508fe828f322cfbf7e, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
