@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5924f9fddf714e8ba7fc49cc6631d9be, type: 3}
   m_Name: TurretConfig
   m_EditorClassIdentifier: Assembly-CSharp::TurretConfig
-  _aimSensitivity: 0.25
+  _degreesPerScreenWidth: 120
   _coneHalfAngle: 45
-  _fireInterval: 0.25
+  _fireInterval: 0.5

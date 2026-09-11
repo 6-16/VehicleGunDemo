@@ -1,10 +1,12 @@
 using ProBase;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Zenject;
 
 public class RunInstaller : MonoInstaller
 {
     private const string RoadParentName = "Road";
+    private const string ProjectileParentName = "Projectiles";
 
     [SerializeField] private VehicleConfig _vehicleConfig;
     [SerializeField] private TurretConfig _turretConfig;
@@ -13,6 +15,8 @@ public class RunInstaller : MonoInstaller
     [SerializeField] private CameraConfig _cameraConfig;
     [SerializeField] private VehicleView _vehiclePrefab;
     [SerializeField] private Camera _runCamera;
+    [SerializeField] private InputActionReference _aimDragAction;
+    [SerializeField] private InputActionReference _aimHoldAction;
 
     public override void InstallBindings()
     {
@@ -53,6 +57,8 @@ public class RunInstaller : MonoInstaller
             .FromComponentInNewPrefab(_vehiclePrefab)
             .AsSingle()
             .NonLazy();
+
+        Container.Bind<TurretView>().FromResolveGetter<VehicleView>(vehicle => vehicle.Turret).AsSingle();
     }
 
     private void InstallPools()
@@ -61,6 +67,11 @@ public class RunInstaller : MonoInstaller
             .WithInitialSize(_roadConfig.PoolSize)
             .FromComponentInNewPrefab(_roadConfig.Prefab)
             .UnderTransformGroup(RoadParentName);
+
+        Container.BindMemoryPool<ProjectileView, ProjectileView.Pool>()
+            .WithInitialSize(_projectileConfig.PoolSize)
+            .FromComponentInNewPrefab(_projectileConfig.Prefab)
+            .UnderTransformGroup(ProjectileParentName);
     }
 
     private void InstallSystems()
@@ -69,5 +80,13 @@ public class RunInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<RunController>().AsSingle();
         Container.BindInterfacesTo<RoadSystem>().AsSingle();
         Container.BindInterfacesTo<RunCamera>().AsSingle();
+
+        Container.BindInterfacesAndSelfTo<AimInput>()
+            .AsSingle()
+            .WithArguments(_aimDragAction, _aimHoldAction);
+
+        Container.BindInterfacesTo<TurretAiming>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ProjectileSystem>().AsSingle();
+        Container.BindInterfacesTo<TurretFiring>().AsSingle();
     }
 }

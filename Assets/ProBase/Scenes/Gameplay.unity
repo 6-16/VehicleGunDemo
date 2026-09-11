@@ -327,6 +327,8 @@ MonoBehaviour:
   _cameraConfig: {fileID: 11400000, guid: 69dae95cd58b4c508fe828f322cfbf7e, type: 2}
   _vehiclePrefab: {fileID: 2047699783654235849, guid: 38f593b521a194e5ba4e3c1ef30f1676, type: 3}
   _runCamera: {fileID: 348948284}
+  _aimDragAction: {fileID: -2938366881349644831, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _aimHoldAction: {fileID: 5808881632068295272, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
