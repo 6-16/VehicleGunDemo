@@ -22,6 +22,7 @@ public class ProjectileSystem : ITickable
         ProjectileView projectile = _pool.Spawn();
 
         projectile.Transform.SetPositionAndRotation(muzzle.position, muzzle.rotation);
+        projectile.BeginTrail();
         projectile.Remaining = _config.Lifetime;
         projectile.ActiveIndex = _active.Count;
 
@@ -70,6 +71,7 @@ public class ProjectileSystem : ITickable
         _active.RemoveAt(last);
 
         projectile.ActiveIndex = Inactive;
+        projectile.EndTrail();
 
         _pool.Despawn(projectile);
     }
