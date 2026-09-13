@@ -10,6 +10,7 @@ public class EnemyView : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private Collider _collider;
     [SerializeField] private HealthBarView _healthBar;
+    [SerializeField] private DamageFlashView _damageFlash;
 
     private readonly EnemyHealth _health = new EnemyHealth();
 
@@ -37,6 +38,7 @@ public class EnemyView : MonoBehaviour
         _hitHash = Animator.StringToHash("GotHit");
 
         _healthBar.Bind(_health);
+        _damageFlash.Bind(_health);
     }
 
     public void Restore(int maxHealth)

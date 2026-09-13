@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb99ce8caaf400394a8ad9da2154e49, type: 3}
+  m_Name: DamageFlashConfig
+  m_EditorClassIdentifier: Assembly-CSharp::DamageFlashConfig
+  _flashMaterial: {fileID: 2100000, guid: cc73bd16637a6400db3a6487322cd0cc, type: 2}
+  _pulseCount: 2
+  _onDuration: 0.06
+  _offDuration: 0.06

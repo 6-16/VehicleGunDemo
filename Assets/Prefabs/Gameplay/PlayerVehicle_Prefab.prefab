@@ -650,6 +650,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8630110048866591260}
   - component: {fileID: 2047699783654235849}
+  - component: {fileID: 3997184096568954546}
   m_Layer: 7
   m_Name: PlayerVehicle_Prefab
   m_TagString: Untagged
@@ -688,6 +689,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VehicleView
   _body: {fileID: 5983038637331981711}
   _turret: {fileID: 7510253301967260912}
+  _damageFlash: {fileID: 3997184096568954546}
+--- !u!114 &3997184096568954546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7586663000225562955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5cc8862b3ce484bb01cd652adfac57c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageFlashView
+  _config: {fileID: 11400000, guid: 2f29f93257c648a1b0bea3e1e3f4adb1, type: 2}
+  _renderers:
+  - {fileID: 4706533554239963820}
+  - {fileID: 6870954689632567282}
+  - {fileID: 2495967421641443096}
+  - {fileID: 4814116926133327852}
+  - {fileID: 6820578258568336080}
+  - {fileID: 2936416704886465334}
 --- !u!1 &8961784983730618423
 GameObject:
   m_ObjectHideFlags: 0
