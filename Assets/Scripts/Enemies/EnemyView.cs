@@ -5,6 +5,7 @@ using Zenject;
 public class EnemyView : MonoBehaviour
 {
     private const int BaseLayer = 0;
+    private const float ParkHeight = -1000f;
 
     [SerializeField] private Animator _animator;
     [SerializeField] private Collider _collider;
@@ -21,7 +22,8 @@ public class EnemyView : MonoBehaviour
     public EnemyHealth Health => _health;
     public EnemyState State { get; set; }
     public bool IsFlinching { get; set; }
-    public float EffectRemaining { get; set; }
+    public float DeathTimer { get; set; }
+    public int DeathEffectToken { get; set; }
     public int ActiveIndex { get; set; }
 
     public event Action<EnemyView, ProjectileView> ProjectileHit;
@@ -41,6 +43,11 @@ public class EnemyView : MonoBehaviour
     {
         _health.Restore(maxHealth);
         _healthBar.Hide();
+    }
+
+    public void Park()
+    {
+        transform.position = new Vector3(0f, ParkHeight, 0f);
     }
 
     public void HideHealthBar()
@@ -90,5 +97,18 @@ public class EnemyView : MonoBehaviour
 
     public class Pool : MonoMemoryPool<EnemyView>
     {
+        protected override void OnCreated(EnemyView item)
+        {
+            base.OnCreated(item);
+
+            item.Park();
+        }
+
+        protected override void OnDespawned(EnemyView item)
+        {
+            base.OnDespawned(item);
+
+            item.Park();
+        }
     }
 }

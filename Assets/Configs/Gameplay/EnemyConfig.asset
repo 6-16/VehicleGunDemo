@@ -17,6 +17,7 @@ MonoBehaviour:
   _moveSpeed: 4
   _detectionRange: 18
   _contactDamage: 10
-  _poolSize: 24
+  _deathDuration: 0.35
+  _poolSize: 30
   _deathEffect: {fileID: 8896182256912941832, guid: 86061538471a34f47a4cd2a08dce90eb, type: 3}
-  _deathEffectPoolSize: 12
+  _deathEffectPoolSize: 16

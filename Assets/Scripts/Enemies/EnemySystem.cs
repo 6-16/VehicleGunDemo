@@ -5,7 +5,10 @@ using Zenject;
 
 public class EnemySystem : ITickable
 {
+    private const int Inactive = -1;
+
     private readonly EnemyConfig _config;
+    private readonly LevelConfig _level;
     private readonly ProjectileConfig _projectileConfig;
     private readonly EnemyView.Pool _pool;
     private readonly VehicleView _vehicle;
@@ -16,6 +19,7 @@ public class EnemySystem : ITickable
 
     public EnemySystem(
         EnemyConfig config,
+        LevelConfig level,
         ProjectileConfig projectileConfig,
         EnemyView.Pool pool,
         VehicleView vehicle,
@@ -24,6 +28,7 @@ public class EnemySystem : ITickable
         EffectSystem effects)
     {
         _config = config != null ? config : throw new ArgumentNullException(nameof(config));
+        _level = level != null ? level : throw new ArgumentNullException(nameof(level));
         _projectileConfig = projectileConfig != null ? projectileConfig : throw new ArgumentNullException(nameof(projectileConfig));
         _pool = pool ?? throw new ArgumentNullException(nameof(pool));
         _vehicle = vehicle != null ? vehicle : throw new ArgumentNullException(nameof(vehicle));
@@ -40,6 +45,8 @@ public class EnemySystem : ITickable
         enemy.Restore(_config.MaxHealth);
         enemy.State = EnemyState.Idle;
         enemy.IsFlinching = false;
+        enemy.DeathTimer = 0f;
+        enemy.DeathEffectToken = 0;
         enemy.ActiveIndex = _active.Count;
         enemy.SetCollisionEnabled(true);
         enemy.PlayIdle();
@@ -59,6 +66,12 @@ public class EnemySystem : ITickable
         for (int index = _active.Count - 1; index >= 0; index--)
         {
             EnemyView enemy = _active[index];
+
+            if (vehiclePosition.z - enemy.Transform.position.z > _level.DespawnBehindDistance)
+            {
+                ReleaseAt(index);
+                continue;
+            }
 
             if (enemy.State == EnemyState.Dying)
             {
@@ -102,10 +115,9 @@ public class EnemySystem : ITickable
 
     private void Decay(EnemyView enemy, int index, float delta)
     {
-        enemy.EffectRemaining -= delta;
+        enemy.DeathTimer -= delta;
 
-        if (enemy.EffectRemaining > 0f) return;
-        if (!enemy.IsHitFinished()) return;
+        if (enemy.DeathTimer > 0f) return;
 
         ReleaseAt(index);
     }
@@ -122,15 +134,18 @@ public class EnemySystem : ITickable
 
     private void OnProjectileHit(EnemyView enemy, ProjectileView projectile)
     {
+        Vector3 impact = projectile.Transform.forward;
+
         _projectiles.Release(projectile);
 
+        if (enemy.ActiveIndex == Inactive) return;
         if (enemy.State == EnemyState.Dying) return;
 
         enemy.Health.TakeDamage(_projectileConfig.Damage);
 
         if (!enemy.Health.IsAlive)
         {
-            BeginDeath(enemy);
+            BeginDeath(enemy, impact);
             return;
         }
 
@@ -143,25 +158,32 @@ public class EnemySystem : ITickable
 
     private void OnVehicleHit(EnemyView enemy)
     {
+        if (enemy.ActiveIndex == Inactive) return;
         if (enemy.State == EnemyState.Dying) return;
+
+        enemy.SetCollisionEnabled(false);
 
         _vehicleHealth.TakeDamage(_config.ContactDamage);
 
         ReleaseAt(enemy.ActiveIndex);
     }
 
-    private void BeginDeath(EnemyView enemy)
+    private void BeginDeath(EnemyView enemy, Vector3 impact)
     {
         enemy.State = EnemyState.Dying;
+        enemy.IsFlinching = false;
         enemy.SetCollisionEnabled(false);
         enemy.HideHealthBar();
         enemy.PlayHit();
 
-        enemy.EffectRemaining = _effects.Play(enemy.Transform.position);
+        enemy.DeathTimer = _config.DeathDuration;
+        enemy.DeathEffectToken = _effects.Play(enemy.Transform.position, impact);
     }
 
     private void ReleaseAt(int index)
     {
+        if (index < 0 || index >= _active.Count) return;
+
         EnemyView enemy = _active[index];
         int last = _active.Count - 1;
 
@@ -173,9 +195,12 @@ public class EnemySystem : ITickable
 
         _active.RemoveAt(last);
 
+        _effects.Release(enemy.DeathEffectToken);
+
+        enemy.DeathEffectToken = 0;
         enemy.ProjectileHit -= OnProjectileHit;
         enemy.VehicleHit -= OnVehicleHit;
-        enemy.ActiveIndex = -1;
+        enemy.ActiveIndex = Inactive;
 
         _pool.Despawn(enemy);
     }

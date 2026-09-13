@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e899a9b5aa4d49bdc360c068b44187, type: 3}
   m_Name: Level_01
   m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
-  _distance: 600
+  _distance: 500
   _enemy: {fileID: 11400000, guid: 8956b9b102744d69b0d405d7220402a6, type: 2}
-  _firstSpawnDistance: 40
+  _firstSpawnDistance: 50
   _spawnAheadDistance: 150
-  _spawnIntervalRange: {x: 12, y: 22}
-  _groupSizeRange: {x: 1, y: 3}
+  _despawnBehindDistance: 30
+  _spawnIntervalRange: {x: 10, y: 20}
+  _groupSizeRange: {x: 1, y: 2}
   _lateralSpread: 5
