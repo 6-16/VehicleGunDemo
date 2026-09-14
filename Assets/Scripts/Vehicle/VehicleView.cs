@@ -10,13 +10,17 @@ public class VehicleView : MonoBehaviour
     [SerializeField] private DamageSquashView _damageSquash;
     [SerializeField] private VehicleDamageEffects _damageEffects;
     [SerializeField] private ParticleSystem[] _driveEffects;
+    [SerializeField] private Transform[] _wheels;
 
     private SignalBus _signalBus;
     private Transform _transform;
+    private float _wheelRadius;
 
     public Transform Transform => _transform;
     public Transform Body => _body;
     public TurretView Turret => _turret;
+    public Transform[] Wheels => _wheels;
+    public float WheelRadius => _wheelRadius;
 
     [Inject]
     private void Construct(VehicleHealth health, SignalBus signalBus)
@@ -33,6 +37,25 @@ public class VehicleView : MonoBehaviour
     private void Awake()
     {
         _transform = transform;
+        _wheelRadius = MeasureWheelRadius();
+    }
+
+    private float MeasureWheelRadius()
+    {
+        if (_wheels.Length == 0) return 0f;
+
+        Renderer[] renderers = _wheels[0].GetComponentsInChildren<Renderer>();
+
+        if (renderers.Length == 0) return 0f;
+
+        Bounds bounds = renderers[0].bounds;
+
+        for (int index = 1; index < renderers.Length; index++)
+        {
+            bounds.Encapsulate(renderers[index].bounds);
+        }
+
+        return Mathf.Max(bounds.size.y, bounds.size.z) * 0.5f;
     }
 
     private void Start()

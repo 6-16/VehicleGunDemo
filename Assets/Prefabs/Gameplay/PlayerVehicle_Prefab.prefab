@@ -1521,6 +1521,11 @@ MonoBehaviour:
   _driveEffects:
   - {fileID: 3201935911166462842}
   - {fileID: 3084631707106870760}
+  _wheels:
+  - {fileID: 5340491403729939503}
+  - {fileID: 7549365484183219437}
+  - {fileID: 2812674047540029914}
+  - {fileID: 204693674314231886}
 --- !u!114 &3997184096568954546
 MonoBehaviour:
   m_ObjectHideFlags: 0

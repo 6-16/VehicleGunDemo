@@ -10,6 +10,7 @@ public class VehicleMovement : IInitializable, ITickable
     private readonly VehicleView _view;
     private readonly VehicleConfig _config;
 
+    private Quaternion[] _wheelRotations;
     private Vector3 _origin;
     private float _seed;
     private bool _isMoving;
@@ -26,7 +27,21 @@ public class VehicleMovement : IInitializable, ITickable
     public void Initialize()
     {
         _origin = _view.Transform.position;
+
+        CacheWheelRotations();
         _seed = UnityEngine.Random.Range(0f, SeedRange);
+    }
+
+    private void CacheWheelRotations()
+    {
+        Transform[] wheels = _view.Wheels;
+
+        _wheelRotations = new Quaternion[wheels.Length];
+
+        for (int index = 0; index < wheels.Length; index++)
+        {
+            _wheelRotations[index] = wheels[index].localRotation;
+        }
     }
 
     public void Begin()
@@ -52,6 +67,21 @@ public class VehicleMovement : IInitializable, ITickable
 
         _view.Transform.position = new Vector3(_origin.x + lateral, _origin.y, _origin.z + _travelled);
         _view.Body.localRotation = Quaternion.Euler(0f, yaw, 0f);
+
+        SpinWheels();
+    }
+
+    private void SpinWheels()
+    {
+        if (_view.WheelRadius <= 0f) return;
+
+        Transform[] wheels = _view.Wheels;
+        Quaternion spin = Quaternion.Euler(_travelled / _view.WheelRadius * Mathf.Rad2Deg, 0f, 0f);
+
+        for (int index = 0; index < wheels.Length; index++)
+        {
+            wheels[index].localRotation = _wheelRotations[index] * spin;
+        }
     }
 
     private float SampleLateral(float distance)
