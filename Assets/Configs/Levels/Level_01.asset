@@ -18,5 +18,7 @@ MonoBehaviour:
   _spawnAheadDistance: 150
   _despawnBehindDistance: 30
   _spawnIntervalRange: {x: 10, y: 20}
-  _groupSizeRange: {x: 1, y: 2}
-  _lateralSpread: 5
+  _groupSizeRange: {x: 1, y: 3}
+  _lateralSpread: 4.5
+  _groupDepth: 8
+  _minSpacing: 1.5

@@ -11,6 +11,8 @@ public class LevelConfig : ScriptableObject
     [SerializeField] private Vector2 _spawnIntervalRange = new Vector2(12f, 22f);
     [SerializeField] private Vector2Int _groupSizeRange = new Vector2Int(1, 3);
     [SerializeField] private float _lateralSpread = 6f;
+    [SerializeField] private float _groupDepth = 8f;
+    [SerializeField] private float _minSpacing = 1.5f;
 
     public float Distance => _distance;
     public EnemyConfig Enemy => _enemy;
@@ -20,4 +22,6 @@ public class LevelConfig : ScriptableObject
     public Vector2 SpawnIntervalRange => _spawnIntervalRange;
     public Vector2Int GroupSizeRange => _groupSizeRange;
     public float LateralSpread => _lateralSpread;
+    public float GroupDepth => _groupDepth;
+    public float MinSpacing => _minSpacing;
 }

@@ -14,6 +14,8 @@ public class EnemyView : MonoBehaviour
 
     private readonly EnemyHealth _health = new EnemyHealth();
 
+    private Transform _vehicleRoot;
+
     private Transform _transform;
     private int _idleHash;
     private int _runHash;
@@ -29,6 +31,12 @@ public class EnemyView : MonoBehaviour
 
     public event Action<EnemyView, ProjectileView> ProjectileHit;
     public event Action<EnemyView> VehicleHit;
+
+    [Inject]
+    private void Construct(VehicleView vehicle)
+    {
+        _vehicleRoot = vehicle != null ? vehicle.transform : throw new ArgumentNullException(nameof(vehicle));
+    }
 
     private void Awake()
     {
@@ -93,6 +101,8 @@ public class EnemyView : MonoBehaviour
             ProjectileHit?.Invoke(this, projectile);
             return;
         }
+
+        if (!other.transform.IsChildOf(_vehicleRoot)) return;
 
         VehicleHit?.Invoke(this);
     }
