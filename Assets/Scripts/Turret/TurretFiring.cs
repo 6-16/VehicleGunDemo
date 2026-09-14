@@ -10,6 +10,7 @@ public class TurretFiring : ITickable
     private readonly RunController _runController;
 
     private float _cooldown;
+    private float _flashRemaining;
 
     public TurretFiring(TurretView view, TurretConfig config, ProjectileSystem projectiles, RunController runController)
     {
@@ -22,13 +23,39 @@ public class TurretFiring : ITickable
     public void Tick()
     {
         if (!_runController.IsRunning) return;
+
+        float delta = Time.deltaTime;
+
+        FadeMuzzleFlash(delta);
+
         if (_config.FireInterval <= 0f) return;
 
-        _cooldown -= Time.deltaTime;
+        _cooldown -= delta;
 
         if (_cooldown > 0f) return;
 
         _cooldown = _config.FireInterval;
+
+        Fire();
+    }
+
+    private void Fire()
+    {
         _projectiles.Fire(_view.Muzzle);
+
+        _flashRemaining = _config.MuzzleFlashDuration;
+
+        _view.SetMuzzleFlash(_flashRemaining > 0f);
+    }
+
+    private void FadeMuzzleFlash(float delta)
+    {
+        if (_flashRemaining <= 0f) return;
+
+        _flashRemaining -= delta;
+
+        if (_flashRemaining > 0f) return;
+
+        _view.SetMuzzleFlash(false);
     }
 }

@@ -7,6 +7,7 @@ public class TurretView : MonoBehaviour
     [SerializeField] private Transform _pivot;
     [SerializeField] private Transform _muzzle;
     [SerializeField] private LineRenderer _laser;
+    [SerializeField] private Light _muzzleFlash;
 
     private SignalBus _signalBus;
 
@@ -23,8 +24,17 @@ public class TurretView : MonoBehaviour
     {
         _laser.enabled = false;
 
+        SetMuzzleFlash(false);
+
         _signalBus.Subscribe<RunStartedSignal>(OnRunStarted);
         _signalBus.Subscribe<RunFinishedSignal>(OnRunFinished);
+    }
+
+    public void SetMuzzleFlash(bool isEnabled)
+    {
+        if (_muzzleFlash == null) return;
+
+        _muzzleFlash.enabled = isEnabled;
     }
 
     private void OnDestroy()

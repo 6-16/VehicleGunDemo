@@ -16,3 +16,4 @@ MonoBehaviour:
   _keyRotationSpeed: 90
   _coneHalfAngle: 45
   _fireInterval: 0.5
+  _muzzleFlashDuration: 0.05
