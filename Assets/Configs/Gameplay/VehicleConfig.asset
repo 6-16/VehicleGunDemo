@@ -17,3 +17,5 @@ MonoBehaviour:
   _driftAmplitude: 1.5
   _driftLength: 50
   _driftMaxYawAngle: 8
+  _lowHealthThreshold: 0.3
+  _popupRadius: 1.5

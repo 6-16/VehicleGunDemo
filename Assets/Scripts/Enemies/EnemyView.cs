@@ -10,6 +10,7 @@ public class EnemyView : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private Collider _collider;
     [SerializeField] private HealthBarView _healthBar;
+    [SerializeField] private ParticleSystem _hitEffect;
     [SerializeField] private DamageFlashView _damageFlash;
 
     private readonly EnemyHealth _health = new EnemyHealth();
@@ -58,6 +59,14 @@ public class EnemyView : MonoBehaviour
     public void Park()
     {
         transform.position = new Vector3(0f, ParkHeight, 0f);
+    }
+
+    public void PlayHitEffect()
+    {
+        if (_hitEffect == null) return;
+
+        _hitEffect.gameObject.SetActive(true);
+        _hitEffect.Play(true);
     }
 
     public void HideHealthBar()

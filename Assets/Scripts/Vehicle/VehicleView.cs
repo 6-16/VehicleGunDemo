@@ -8,6 +8,7 @@ public class VehicleView : MonoBehaviour
     [SerializeField] private TurretView _turret;
     [SerializeField] private DamageFlashView _damageFlash;
     [SerializeField] private DamageSquashView _damageSquash;
+    [SerializeField] private VehicleDamageEffects _damageEffects;
     [SerializeField] private ParticleSystem[] _driveEffects;
 
     private SignalBus _signalBus;
@@ -26,6 +27,7 @@ public class VehicleView : MonoBehaviour
 
         _damageFlash.Bind(health);
         _damageSquash.Bind(health);
+        _damageEffects.Bind(health);
     }
 
     private void Awake()

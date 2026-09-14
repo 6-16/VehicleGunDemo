@@ -141,6 +141,7 @@ public class EnemySystem : ITickable
         if (enemy.ActiveIndex == Inactive) return;
         if (enemy.State == EnemyState.Dying) return;
 
+        enemy.PlayHitEffect();
         enemy.Health.TakeDamage(_projectileConfig.Damage);
 
         if (!enemy.Health.IsAlive)
