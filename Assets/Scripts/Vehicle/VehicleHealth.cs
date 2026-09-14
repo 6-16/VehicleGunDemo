@@ -23,6 +23,8 @@ public class VehicleHealth : IInitializable, IDamageable, IHealth
     public void Initialize()
     {
         _current = _config.MaxHealth;
+
+        Changed?.Invoke();
     }
 
     public void TakeDamage(int amount)

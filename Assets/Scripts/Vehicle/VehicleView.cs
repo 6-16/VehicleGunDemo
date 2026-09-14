@@ -7,6 +7,7 @@ public class VehicleView : MonoBehaviour
     [SerializeField] private Transform _body;
     [SerializeField] private TurretView _turret;
     [SerializeField] private DamageFlashView _damageFlash;
+    [SerializeField] private DamageSquashView _damageSquash;
 
     private Transform _transform;
 
@@ -20,6 +21,7 @@ public class VehicleView : MonoBehaviour
         if (health == null) throw new ArgumentNullException(nameof(health));
 
         _damageFlash.Bind(health);
+        _damageSquash.Bind(health);
     }
 
     private void Awake()

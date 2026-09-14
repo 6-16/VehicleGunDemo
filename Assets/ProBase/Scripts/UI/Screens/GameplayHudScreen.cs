@@ -12,6 +12,8 @@ namespace ProBase
         [SerializeField] private Button _goButton;
         [SerializeField] private GameObject _progressRoot;
         [SerializeField] private Image _progressFill;
+        [SerializeField] private RectTransform _progressMarker;
+        [SerializeField] private TMP_Text _distanceLabel;
         [SerializeField] private TMP_Text _levelLabel;
 
         private IUiService _uiService;
@@ -20,6 +22,8 @@ namespace ProBase
         private LevelConfig _level;
         private SignalBus _signalBus;
         private float _shownProgress;
+        private float _barHeight;
+        private int _shownDistance;
 
         [Inject]
         private void Construct(
@@ -40,6 +44,8 @@ namespace ProBase
         {
             _progressRoot.SetActive(false);
             _goButton.gameObject.SetActive(true);
+            _barHeight = _progressFill.rectTransform.rect.height;
+            _shownDistance = -1;
             _levelLabel.text = _levelCatalog.NumberOf(_level).ToString();
         }
 
@@ -69,6 +75,22 @@ namespace ProBase
 
             _shownProgress = progress;
             _progressFill.fillAmount = progress;
+
+            Vector2 markerPosition = _progressMarker.anchoredPosition;
+            markerPosition.y = progress * _barHeight;
+            _progressMarker.anchoredPosition = markerPosition;
+
+            UpdateDistance();
+        }
+
+        private void UpdateDistance()
+        {
+            int distance = Mathf.FloorToInt(_runController.Travelled);
+
+            if (distance == _shownDistance) return;
+
+            _shownDistance = distance;
+            _distanceLabel.text = distance.ToString();
         }
 
         private void OnGoClicked()

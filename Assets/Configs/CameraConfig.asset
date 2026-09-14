@@ -17,3 +17,5 @@ MonoBehaviour:
   _chasePosition: {x: 0, y: 8, z: -9}
   _chaseRotation: {x: 35, y: 0, z: 0}
   _blendDuration: 0.5
+  _shakeAmplitude: 0.15
+  _shakeDuration: 0.25

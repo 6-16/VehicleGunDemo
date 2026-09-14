@@ -16,6 +16,7 @@ public class RunController : IInitializable, ITickable, IDisposable
 
     public bool IsRunning => _isRunning;
     public float NormalizedProgress => Mathf.Clamp01(_movement.Travelled / _level.Distance);
+    public float Travelled => _movement.Travelled;
 
     public RunController(
         VehicleMovement movement,
